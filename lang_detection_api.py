@@ -7,6 +7,7 @@ Language detection API
 import os, sys, json
 #parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #sys.path.insert(0, parent_dir)
+import time
 
 from tornado.web import Application
 from tornado.ioloop import IOLoop
@@ -110,9 +111,12 @@ class LanguageDetectionHandler(GenericHandler):
         REST service that receives a string and returns the detected language. 
     """
     def get(self):
+        start = time.time()
         text = self.get_argument("text")
         try:
-            response = self.application.detector.detect_most_probable(text)
+            response = {}
+            response["language"] = self.application.detector.detect_most_probable(text)
+            response["elapsed_time"] = time.time() - start
             self.send_response(response)
         except Exception as e:
             self.application.log.exception(e)
@@ -125,9 +129,12 @@ class LanguageDetectionProbabilitiesHandler(GenericHandler):
         distribution.
     """
     def get(self):
+        start = time.time()
         text = self.get_argument("text")
         try:
-            response = self.application.detector.detect(text)
+            response = {}
+            response["probabilities"] = self.application.detector.detect(text)
+            response["elapsed_time"] = time.time() - start
             self.send_response(response)
         except Exception as e:
             self.application.log.exception(e)
