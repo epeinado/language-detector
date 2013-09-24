@@ -109,7 +109,7 @@ class LanguageDetectionHandler(GenericHandler):
     """
         REST service that receives a string and returns the detected language. 
     """
-    def post(self):
+    def get(self):
         text = self.get_argument("text")
         try:
             response = self.application.detector.detect_most_probable(text)
@@ -124,7 +124,7 @@ class LanguageDetectionProbabilitiesHandler(GenericHandler):
         REST service that receives a string and returns the language probability
         distribution.
     """
-    def post(self):
+    def get(self):
         text = self.get_argument("text")
         try:
             response = self.application.detector.detect(text)
