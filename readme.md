@@ -21,9 +21,9 @@ API
 
 The API has two currently available services.
 
- * `/detect_language`: receives a text parameter via **POST** and returns the most
+ * `/detect_language`: receives a text parameter via **GET** and returns the most
 probable language for it.
- * `/language_probabilities`: receives a text parameter via **POST** and returns
+ * `/language_probabilities`: receives a text parameter via **GET** and returns
 the probability distribution for each of the supported languages.
 
 
