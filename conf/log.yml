@@ -1,0 +1,29 @@
+version: 1
+formatters:
+  standard:
+    format: '%(asctime)s - %(levelname)s - %(process)s - %(message)s'
+    datefmt: '%Y/%m/%d %H:%M:%S'
+  simple:
+    format: '%(message)s'
+  error:
+    format: '%(asctime)s - %(process)s - %(exc_info)s - %(message)s'
+handlers:
+  console:
+    class: logging.StreamHandler
+    formatter: standard
+    stream: ext://sys.stdout
+  fileLogging:
+    class: logging.handlers.RotatingFileHandler
+    backupCount: 10
+    maxBytes: 50000000
+    formatter: standard
+    filename: 'log/language_detection.log'
+loggers:
+  language_detection:
+        level: DEBUG
+        handlers: [fileLogging]
+        propagate: yes
+root:
+  level: DEBUG
+  handlers: [console]
+
